@@ -1,0 +1,21 @@
+{
+  "name": "call-center",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha --reporter spec --no-timeouts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "author": "Matias Adrian Moreno Gallo",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1"
+  }
+}
