@@ -48,6 +48,7 @@ Libera un empleado pusheandolo de nuevo en su respectiva cola
 ```
 
 **Class Employee**
+
 _Atributos_
 
 * id: integer
@@ -58,7 +59,8 @@ _Se inicializa con los siguientes parametros_
 new (callsQueue = [], directorsQueue = [], supervisorsQueue = [], operatorsQueue = [])
 ```
 
-**Class Director/Supervisor/Operator**
+**Class Director/Supervisor/Operator extend Employee**
+
 _Atributos_
 
 super(id,name)
