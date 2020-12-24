@@ -54,11 +54,6 @@ _Atributos_
 * id: integer
 * name: string
 
-_Se inicializa con los siguientes parametros_
-```
-new (callsQueue = [], directorsQueue = [], supervisorsQueue = [], operatorsQueue = [])
-```
-
 **Class Director/Supervisor/Operator extend Employee**
 
 _Atributos_
