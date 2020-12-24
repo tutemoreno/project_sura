@@ -54,10 +54,10 @@ export default class Dispatcher {
 
       this.#currentCalls++;
 
-      this.startCall(call).then(() => {
+      this.#startCall(call).then(() => {
         this.#currentCalls--;
 
-        this.releaseEmployee(employee);
+        this.#releaseEmployee(employee);
 
         resolve({
           employee: employee.getData,
@@ -68,7 +68,7 @@ export default class Dispatcher {
   }
 
   // libera un empleado luego de terminar su llamada y lo vuelve a pushear en su cola respectiva
-  releaseEmployee(employee) {
+  #releaseEmployee(employee) {
     switch (employee.getType) {
       case EMPLOYEE_TYPE.OPERATOR:
         this.#operatorsQueue.push(employee);
@@ -85,7 +85,7 @@ export default class Dispatcher {
   }
 
   // inicia la llamada con un time out para simular la duracion
-  startCall(call) {
+  #startCall(call) {
     return new Promise((resolve) =>
       setTimeout(() => resolve(), call.getDuration)
     );
