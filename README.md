@@ -84,6 +84,12 @@ new Employee(id, name)
 
 _npm test_
 
+### Diagrama 🔧
+
+_project/diagram.drawio_
+
+_Abrir con www.draw.io _
+
 ### Test y puntos extra 🔩
 
 _project/test/dispatcher.js_
