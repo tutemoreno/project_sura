@@ -1,64 +1,101 @@
-# project_sura
-test sura
+# PROJECT SURA
 
-Class Dispatcher
+_Projecto test CallCenter_
 
-Se inicializa con los siguientes parametros
+## Comenzando 🚀
 
-callsQueue: array Call
-directorsQueue: array Director
-supervisorsQueue: array Supervisor
-OperatorsQueue: array Operator
+**Class Dispatcher**
 
-el atributo contador "currentCalls" inicia en 0 hasta un limite de 10
+_Atributos_
 
+* callsQueue: array Call
+* directorsQueue: array Director
+* supervisorsQueue: array Supervisor
+* OperatorsQueue: array Operator
+* currentCalls: integer //contador de llamadas concurrentes (max 10)
 
+_Se inicializa con los siguientes parametros_
+```
+new Dispatcher(callsQueue = [], directorsQueue = [], supervisorsQueue = [], operatorsQueue = [])
+```
+
+_Metodos_
+
+```
 addCall(Call): void
 
-agrega una llamada a la cola
+Agrega una llamada a la cola
+```
 
-
+```
 dispatchCall(): Promise
 
-al llamar este metodo toma la llamada mas antigua en "callsQueue" (FIFO)
-la asigna al primer empleado disponible por orden de prioridad de jerarquia y de antiguedad en su respectiva cola
-aumenta el contador de llamadas concurrentes "currentCalls"
+* Al disparar este metodo toma la llamada mas antigua en "callsQueue" (FIFO)
+* Asigna la llamada al primer empleado disponible por orden de prioridad de jerarquia y de antiguedad en su respectiva cola
+* Aumenta el contador de llamadas concurrentes "currentCalls"
+```
 
-
+```
 startCall(Call): Promise
 
-inicia la llamada simulando un delay con un setTimeout sobre la duracion
+Inicia la llamada simulando un delay con un setTimeout sobre la duracion
+```
 
-
+```
 releaseEmployee(Employee): void
 
-libera un empleado pusheandolo de nuevo en su respectiva cola
+Libera un empleado pusheandolo de nuevo en su respectiva cola
+```
 
+**Class Employee**
+_Atributos_
 
-Class Employee
+* id: integer
+* name: string
 
-id: int
-name: str
+_Se inicializa con los siguientes parametros_
+```
+new (callsQueue = [], directorsQueue = [], supervisorsQueue = [], operatorsQueue = [])
+```
 
-las clases Operador, Supervisor, Director extienden de Employee y tiene un atributo mas que el tipo de jerarquia
+**Class Director/Supervisor/Operator**
+_Atributos_
 
-Class Director
-type: 1
-Class Supervisor
-type: 2
-Class Operator
-type: 3
+super(id,name)
+* id: integer
+* name: string
+* type: integer // tipo de empleado
 
-EMPLOYEE_TYPE = { DIRECTOR: 1, SUPERVISOR: 2, OPERATOR: 3 };
+// EMPLOYEE_TYPE = { DIRECTOR: 1, SUPERVISOR: 2, OPERATOR: 3 }
 
+_Se inicializa con los siguientes parametros_
+```
+new Employee(id, name)
+```
 
-Class Call
+**Class Call**
 
-number: str //numero de telefono guardado como string
-duration: int //tiempo de la duracion de la llamada en milisegundos
+* number: string //numero de telefono guardado como string
+* duration: integer //tiempo de la duracion de la llamada en milisegundos
 
-TESTS Y PUNTOS EXTRA
-1. el test unitario que requiere el ejercicio pidiendo 10 llamadas simultaneas
-2. caso de error cuando se llama a dispatchCall y ya no hay mas llamadas en la cola (PLUS)
-3. caso de error cuando se llama a dispatchCall y no hay empleados disponibles (PLUS)
-4. caso de error cuando se llama a dispatchCall 11 veces cuando solo hay 10 slots disponibles para llamadas (PLUS)
+## Ejecutando las pruebas ⚙️
+
+_npm test_
+
+### Test y puntos extra 🔩
+
+_project/test/dispatcher.js_
+
+1. _El test unitario que requiere el ejercicio pidiendo 10 llamadas simultaneas_
+2. _Caso de error cuando se llama a dispatchCall y ya no hay mas llamadas en la cola (PLUS)_
+3. _Caso de error cuando se llama a dispatchCall y no hay empleados disponibles (PLUS)_
+4. _Caso de error cuando se llama a dispatchCall 11 veces cuando solo hay 10 slots disponibles para llamadas (PLUS)_
+
+## Construido con 🛠️
+
+* [mocha.js](http://https://mochajs.org/)
+* [chai](https://https://www.chaijs.com/)
+
+## Autor ✒️
+
+* **Matias Adrian Moreno Gallo** 
