@@ -88,7 +88,7 @@ _npm test_
 
 _project/diagram.drawio_
 
-_Abrir con www.draw.io _
+_Abrir con www.draw.io_
 
 ### Test y puntos extra 🔩
 
