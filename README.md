@@ -93,6 +93,7 @@ _project/test/dispatcher.js_
 2. _Caso de error cuando se llama a dispatchCall y ya no hay mas llamadas en la cola (PLUS)_
 3. _Caso de error cuando se llama a dispatchCall y no hay empleados disponibles (PLUS)_
 4. _Caso de error cuando se llama a dispatchCall 11 veces cuando solo hay 10 slots disponibles para llamadas (PLUS)_
+5. _Revision de prioridad_
 
 ## Construido con 🛠️
 
