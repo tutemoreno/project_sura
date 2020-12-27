@@ -1,4 +1,4 @@
-import { EMPLOYEE_TYPE } from './employee.js';
+import { EMPLOYEE_TYPE } from "./employee.js";
 
 const MAX_CALLS = 10;
 
@@ -30,11 +30,11 @@ export default class Dispatcher {
   }
 
   dispatchCall() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       if (!this.#callsQueue.length)
-        return resolve({ message: 'no more calls' });
+        return resolve({ message: "no more calls" });
       if (!(this.#currentCalls < MAX_CALLS))
-        return resolve({ message: 'no free slots' });
+        return resolve({ message: "no free slots" });
 
       let employee;
 
@@ -48,7 +48,7 @@ export default class Dispatcher {
         employee = this.#directorsQueue.shift();
       }
 
-      if (!employee) return resolve({ message: 'no free employees' });
+      if (!employee) return resolve({ message: "no free employees" });
 
       const call = this.#callsQueue.shift();
 
@@ -61,7 +61,7 @@ export default class Dispatcher {
 
         resolve({
           employee: employee.getData,
-          call: call.getData,
+          call: call.getData
         });
       });
     });
@@ -86,7 +86,7 @@ export default class Dispatcher {
 
   // inicia la llamada con un time out para simular la duracion
   #startCall(call) {
-    return new Promise((resolve) =>
+    return new Promise(resolve =>
       setTimeout(() => resolve(), call.getDuration)
     );
   }

@@ -260,4 +260,77 @@ describe("Starting test...", function() {
       done();
     });
   });
+
+  it("dispatchCall priority", function(done) {
+    // en este test entran 5 llamadas cuando solo hay 4 empleados disponibles
+    // se atienden todas en orden, operator 1 2 3, supervisor 1
+    // segun la duracion de las llamadas el primer empleado en liberarse es el supervisor 1 (llamada de 1 seg)
+    // pero al respetar la prioridad por jerarquia de los empleados
+    // el operador 2 tiene una llamada de 2 segundos cuando los otros dos tienen una llamada de 3 segundos
+    // entonces al reintentar dispatchCall el supervisor 1 fue el primero en liberarse pero atiende el operador 2
+
+    const mockDirectors = [],
+      mockSupervisors = [new Supervisor(1, "Supervisor 1")],
+      mockOperators = [
+        new Operator(1, "Operator 1"),
+        new Operator(2, "Operator 2"),
+        new Operator(3, "Operator 3")
+      ],
+      mockCalls = [
+        new Call("0000-0001", 3000), // op 1
+        new Call("0000-0002", 2000), // op 2
+        new Call("0000-0003", 3000), // op 3
+        new Call("0000-0004", 1000), // sup 1
+        new Call("0000-0005", 1000) // op 2 again
+      ];
+
+    const dispatcher = new Dispatcher(
+      mockCalls,
+      mockDirectors,
+      mockSupervisors,
+      mockOperators
+    );
+
+    Promise.all([
+      dispatcher.dispatchCall(),
+      dispatcher.dispatchCall(),
+      dispatcher.dispatchCall(),
+      dispatcher.dispatchCall(),
+      dispatcher.dispatchCall()
+    ]).then(res => {
+      expect(res).to.deep.equal([
+        {
+          employee: { id: 1, name: "Operator 1", type: 3 },
+          call: { number: "0000-0001", duration: 3000 }
+        },
+        {
+          employee: { id: 2, name: "Operator 2", type: 3 },
+          call: { number: "0000-0002", duration: 2000 }
+        },
+        {
+          employee: { id: 3, name: "Operator 3", type: 3 },
+          call: { number: "0000-0003", duration: 3000 }
+        },
+        {
+          employee: { id: 1, name: "Supervisor 1", type: 2 },
+          call: { number: "0000-0004", duration: 1000 }
+        },
+        { message: "no free employees" }
+      ]);
+
+      Promise.all([dispatcher.dispatchCall(), dispatcher.dispatchCall()]).then(
+        res => {
+          expect(res).to.deep.equal([
+            {
+              employee: { id: 2, name: "Operator 2", type: 3 },
+              call: { number: "0000-0005", duration: 1000 }
+            },
+            { message: "no more calls" }
+          ]);
+
+          done();
+        }
+      );
+    });
+  });
 });
